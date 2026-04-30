@@ -5,9 +5,9 @@
     window.addEventListener("scroll",()=>{
         nav.classList.toggle("stuck",window.scrollY>60);
     },{
-        "passive":true
+        passive: true
     });
-    const revealTargets=document.querySelectorAll(".t-card, .stat, .lang-card, .c-card");
+    const revealTargets=document.querySelectorAll(".course-card, .stat, .lang-card, .c-card");
     const io=new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
             if(!entry.isIntersecting)
@@ -18,14 +18,14 @@
             const siblings=[...el.parentElement.children].filter(c=>c.className===el.className);
             const idx=siblings.indexOf(el);
             setTimeout(()=>el.classList.add('in'),idx*80);
-            io.unobserve(el);
+            io.unobserve(el); // Stop observing once revealed
         });
     },{
-        "threshold":0.1,
-        "rootMargin":"0px 0px -30px 0px"
+        threshold: 0.1,
+        rootMargin: "0px 0px -30px 0px" // Start observing when 30px from bottom
     });
     revealTargets.forEach(el=>io.observe(el));
-    const guitarWrap=document.querySelector(".guitar-wrap");
+    const guitarWrap=document.querySelector(".guitar-wrap"); // This element is not present in index.html
     if(guitarWrap && window.innerWidth>900)
     {
         window.addEventListener("scroll",()=>{
@@ -42,8 +42,8 @@
             {
                 e.preventDefault();
                 target.scrollIntoView({
-                    "behavior":'smooth',
-                    "block":"start"
+                    behavior: 'smooth',
+                    block: "start"
                 });
             }
         });
