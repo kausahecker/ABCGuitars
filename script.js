@@ -1,4 +1,4 @@
-(function() 
+(function()
 {
     "use strict"
     const nav=document.getElementById("nav");
@@ -7,7 +7,7 @@
     },{
         passive: true
     });
-    const revealTargets=document.querySelectorAll(".course-card, .stat, .lang-card, .c-card");
+    const revealTargets=document.querySelectorAll(".course-card, .about-stat, .lang-flag, .c-card");
     const io=new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
             if(!entry.isIntersecting)
@@ -15,8 +15,8 @@
                 return;
             }
             const el=entry.target;
-            const siblings=[...el.parentElement.children].filter(c=>c.className===el.className);
-            const idx=siblings.indexOf(el);
+            // Calculate index based on position among siblings of the same type for staggered delay
+            const idx = Array.from(el.parentElement.children).indexOf(el);
             setTimeout(()=>el.classList.add('in'),idx*80);
             io.unobserve(el); // Stop observing once revealed
         });
@@ -48,7 +48,7 @@
             }
         });
     });
-    document.querySelectorAll(".t-card").forEach(card=>{
+    document.querySelectorAll(".course-card, .c-card").forEach(card=>{
         card.addEventListener("mousemove",function(e)
         {
             const r=this.getBoundingClientRect();
